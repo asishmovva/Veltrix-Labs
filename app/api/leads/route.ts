@@ -58,18 +58,37 @@ export async function POST(request: Request) {
     timestamp: new Date().toISOString(),
   };
 
-  try {
-    await sendLeadEmail(leadRecord);
-    await appendLeadToSheets(leadRecord);
+  const [sheetsResult, emailResult] = await Promise.allSettled([
+    appendLeadToSheets(leadRecord),
+    sendLeadEmail(leadRecord),
+  ]);
+
+  const sheetsOk = sheetsResult.status === "fulfilled";
+  const emailOk = emailResult.status === "fulfilled";
+
+  if (sheetsOk && emailOk) {
     return NextResponse.json({ ok: true });
-  } catch (error) {
-    console.error("[leads] Failed to process lead", error);
-    return NextResponse.json(
-      {
-        ok: false,
-        error: "Unable to process your request right now. Please try again.",
-      },
-      { status: 500 },
-    );
   }
+
+  if (sheetsOk || emailOk) {
+    if (!sheetsOk) {
+      console.error("[leads] Sheets append failed", sheetsResult.reason);
+    }
+    if (!emailOk) {
+      console.error("[leads] Email delivery failed", emailResult.reason);
+    }
+    return NextResponse.json({ ok: true });
+  }
+
+  console.error("[leads] Failed to process lead in all integrations", {
+    sheetsError: sheetsResult.status === "rejected" ? sheetsResult.reason : null,
+    emailError: emailResult.status === "rejected" ? emailResult.reason : null,
+  });
+  return NextResponse.json(
+    {
+      ok: false,
+      error: "Unable to process your request right now. Please try again.",
+    },
+    { status: 502 },
+  );
 }
