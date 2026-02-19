@@ -27,7 +27,9 @@ export default function ContactPage() {
   return (
     <>
       <SectionRenderer sections={page.validatedSections} />
-      <ContactForm />
+      <section id="contact-form" className="scroll-mt-24 py-12 md:py-16">
+        <ContactForm />
+      </section>
     </>
   );
 }

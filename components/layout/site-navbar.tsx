@@ -58,7 +58,7 @@ export function SiteNavbar() {
 
           <div className="hidden md:block">
             <Button asChild size="sm">
-              <Link href="/contact">Start Project</Link>
+              <Link href="/contact#contact-form">Start Project</Link>
             </Button>
           </div>
 
@@ -127,7 +127,9 @@ export function SiteNavbar() {
               </nav>
 
               <Button asChild className="mt-6">
-                <Link href="/contact">Start Your Project</Link>
+                <Link href="/contact#contact-form" onClick={() => setIsMobileNavOpen(false)}>
+                  Start Your Project
+                </Link>
               </Button>
 
               <p className="mt-auto text-xs text-text-secondary">{siteConfig.locations}</p>
