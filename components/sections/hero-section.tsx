@@ -1,9 +1,9 @@
 "use client";
 
 import type { Section } from "@/lib/content/sections";
-import Link from "next/link";
 import { motion } from "framer-motion";
 
+import { TrackedCtaLink } from "@/components/analytics/tracked-cta-link";
 import { Button } from "@/components/ui/button";
 
 type HeroSectionData = Extract<Section, { type: "hero" }>;
@@ -54,8 +54,16 @@ export function HeroSection({ section }: HeroSectionProps) {
       {section.ctas?.length ? (
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           {section.ctas.map((cta) => (
-            <Button key={`${section.id}-${cta.label}`} asChild size="lg" variant={cta.variant ?? "default"} className="w-full sm:w-auto">
-              <Link href={cta.href}>{cta.label}</Link>
+            <Button
+              key={`${section.id}-${cta.label}`}
+              asChild
+              size="lg"
+              variant={cta.variant ?? "default"}
+              className="w-full sm:w-auto"
+            >
+              <TrackedCtaLink href={cta.href} label={cta.label} location={section.id}>
+                {cta.label}
+              </TrackedCtaLink>
             </Button>
           ))}
         </div>
