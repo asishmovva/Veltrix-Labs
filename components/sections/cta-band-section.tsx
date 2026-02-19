@@ -1,6 +1,8 @@
-import type { Section } from "@/lib/content/sections";
-import Link from "next/link";
+"use client";
 
+import type { Section } from "@/lib/content/sections";
+
+import { TrackedCtaLink } from "@/components/analytics/tracked-cta-link";
 import { Button } from "@/components/ui/button";
 
 type CtaBandData = Extract<Section, { type: "cta_band" }>;
@@ -25,7 +27,9 @@ export function CtaBandSection({ section }: CtaBandSectionProps) {
               variant={cta.variant ?? "default"}
               className="w-full sm:w-auto"
             >
-              <Link href={cta.href}>{cta.label}</Link>
+              <TrackedCtaLink href={cta.href} label={cta.label} location={section.id}>
+                {cta.label}
+              </TrackedCtaLink>
             </Button>
           ))}
         </div>

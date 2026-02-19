@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { ContactForm } from "@/components/forms/contact-form";
 import { ContentFallback } from "@/components/sections/content-fallback";
 import { SectionRenderer } from "@/components/sections/section-renderer";
 import { getPageBySlug } from "@/lib/content/getPageBySlug";
@@ -23,5 +24,10 @@ export default function ContactPage() {
     return <ContentFallback slug="contact" />;
   }
 
-  return <SectionRenderer sections={page.validatedSections} />;
+  return (
+    <>
+      <SectionRenderer sections={page.validatedSections} />
+      <ContactForm />
+    </>
+  );
 }
