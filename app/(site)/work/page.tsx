@@ -1,24 +1,35 @@
-import { SectionWrapper } from "@/components/sections/section-wrapper";
+import type { Metadata } from "next";
+
+import { CaseStudiesGridSection } from "@/components/sections/case-studies-grid-section";
+import { ContentFallback } from "@/components/sections/content-fallback";
+import { SectionRenderer } from "@/components/sections/section-renderer";
+import { getCaseStudies } from "@/lib/content/getCaseStudies";
+import { getPageBySlug } from "@/lib/content/getPageBySlug";
+import { buildMetadata } from "@/lib/seo";
+import { siteConfig } from "@/lib/site";
+
+export function generateMetadata(): Metadata {
+  const page = getPageBySlug("work");
+
+  return buildMetadata({
+    title: page?.title ?? "Work",
+    description: page?.description ?? siteConfig.description,
+    path: "/work",
+  });
+}
 
 export default function WorkPage() {
+  const page = getPageBySlug("work");
+  const caseStudies = getCaseStudies();
+
+  if (!page) {
+    return <ContentFallback slug="work" />;
+  }
+
   return (
-    <SectionWrapper
-      title="Work"
-      description="Case study grid shell is in place. Full problem, solution, stack, and result narratives will be filled in during Phase 2."
-    >
-      <div className="grid gap-4 md:grid-cols-2">
-        {["Vailsburg", "JamRock"].map((project) => (
-          <article
-            key={project}
-            className="rounded-2xl border border-white/10 bg-graphite-2/60 p-5"
-          >
-            <h2 className="text-xl font-medium text-text-primary">{project}</h2>
-            <p className="mt-2 text-sm text-text-secondary">
-              Placeholder card ready for case study details and visuals.
-            </p>
-          </article>
-        ))}
-      </div>
-    </SectionWrapper>
+    <>
+      <SectionRenderer sections={page.validatedSections} />
+      <CaseStudiesGridSection items={caseStudies} />
+    </>
   );
 }

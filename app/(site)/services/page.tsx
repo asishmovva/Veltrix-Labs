@@ -1,30 +1,27 @@
-import { SectionWrapper } from "@/components/sections/section-wrapper";
+import type { Metadata } from "next";
 
-const SERVICES = [
-  "Web Engineering",
-  "E-Commerce Architecture",
-  "UI/UX Systems",
-  "Automation & Integrations",
-  "Performance & Optimization",
-  "Ongoing Support",
-];
+import { ContentFallback } from "@/components/sections/content-fallback";
+import { SectionRenderer } from "@/components/sections/section-renderer";
+import { getPageBySlug } from "@/lib/content/getPageBySlug";
+import { buildMetadata } from "@/lib/seo";
+import { siteConfig } from "@/lib/site";
+
+export function generateMetadata(): Metadata {
+  const page = getPageBySlug("services");
+
+  return buildMetadata({
+    title: page?.title ?? "Services",
+    description: page?.description ?? siteConfig.description,
+    path: "/services",
+  });
+}
 
 export default function ServicesPage() {
-  return (
-    <SectionWrapper
-      title="Services"
-      description="Service architecture is ready for the full Phase 2 build. Detailed breakdowns, deliverables, timelines, and price positioning will be added next."
-    >
-      <div className="grid gap-3 sm:grid-cols-2">
-        {SERVICES.map((service) => (
-          <div
-            key={service}
-            className="rounded-xl border border-white/10 bg-graphite-2/60 px-4 py-3 text-text-primary"
-          >
-            {service}
-          </div>
-        ))}
-      </div>
-    </SectionWrapper>
-  );
+  const page = getPageBySlug("services");
+
+  if (!page) {
+    return <ContentFallback slug="services" />;
+  }
+
+  return <SectionRenderer sections={page.validatedSections} />;
 }

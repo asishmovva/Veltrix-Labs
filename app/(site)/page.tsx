@@ -1,28 +1,27 @@
-import Link from "next/link";
+import type { Metadata } from "next";
 
-import { Button } from "@/components/ui/button";
+import { ContentFallback } from "@/components/sections/content-fallback";
+import { SectionRenderer } from "@/components/sections/section-renderer";
+import { getPageBySlug } from "@/lib/content/getPageBySlug";
+import { buildMetadata } from "@/lib/seo";
+import { siteConfig } from "@/lib/site";
+
+export function generateMetadata(): Metadata {
+  const page = getPageBySlug("home");
+
+  return buildMetadata({
+    title: page?.title ?? "Home",
+    description: page?.description ?? siteConfig.description,
+    path: "/",
+  });
+}
 
 export default function HomePage() {
-  return (
-    <section className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 pb-24 pt-20">
-      <p className="text-sm uppercase tracking-[0.2em] text-text-secondary">Veltrix Labs</p>
-      <div className="max-w-3xl space-y-5">
-        <h1 className="text-4xl font-semibold leading-tight text-text-primary sm:text-6xl">
-          Precision-engineered web experiences for modern brands.
-        </h1>
-        <p className="text-lg text-text-secondary sm:text-xl">
-          Foundation shell is live. Core services, work, about, contact, and content
-          architecture are now in place for phased buildout.
-        </p>
-      </div>
-      <div className="flex flex-wrap gap-4">
-        <Button asChild size="lg">
-          <Link href="/contact">Start Your Project</Link>
-        </Button>
-        <Button asChild size="lg" variant="ghost" className="border border-white/15">
-          <Link href="/work">View Our Work</Link>
-        </Button>
-      </div>
-    </section>
-  );
+  const page = getPageBySlug("home");
+
+  if (!page) {
+    return <ContentFallback slug="home" />;
+  }
+
+  return <SectionRenderer sections={page.validatedSections} />;
 }
