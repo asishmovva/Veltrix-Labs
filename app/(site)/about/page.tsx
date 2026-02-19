@@ -1,14 +1,27 @@
-import { SectionWrapper } from "@/components/sections/section-wrapper";
+import type { Metadata } from "next";
+
+import { ContentFallback } from "@/components/sections/content-fallback";
+import { SectionRenderer } from "@/components/sections/section-renderer";
+import { getPageBySlug } from "@/lib/content/getPageBySlug";
+import { buildMetadata } from "@/lib/seo";
+import { siteConfig } from "@/lib/site";
+
+export function generateMetadata(): Metadata {
+  const page = getPageBySlug("about");
+
+  return buildMetadata({
+    title: page?.title ?? "About",
+    description: page?.description ?? siteConfig.description,
+    path: "/about",
+  });
+}
 
 export default function AboutPage() {
-  return (
-    <SectionWrapper
-      title="About Veltrix"
-      description="Core narrative sections for vision, engineering approach, tooling, and philosophy are scaffolded and ready for full content."
-    >
-      <div className="rounded-2xl border border-white/10 bg-graphite-2/60 p-5 text-text-secondary">
-        Strategic and technical brand messaging lands in Phase 2.
-      </div>
-    </SectionWrapper>
-  );
+  const page = getPageBySlug("about");
+
+  if (!page) {
+    return <ContentFallback slug="about" />;
+  }
+
+  return <SectionRenderer sections={page.validatedSections} />;
 }

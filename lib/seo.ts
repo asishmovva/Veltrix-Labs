@@ -9,28 +9,43 @@ type MetadataInput = {
   image?: string;
 };
 
+function normalizePath(path: string) {
+  const withLeadingSlash = path.startsWith("/") ? path : `/${path}`;
+  if (withLeadingSlash !== "/" && withLeadingSlash.endsWith("/")) {
+    return withLeadingSlash.slice(0, -1);
+  }
+  return withLeadingSlash;
+}
+
 export function buildMetadata({
   title,
   description,
   path = "/",
   image = "/og-image.jpg",
 }: MetadataInput = {}): Metadata {
+  const canonicalPath = normalizePath(path);
   const pageTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
   const metaDescription = description ?? siteConfig.description;
-  const url = new URL(path, siteConfig.url).toString();
-  const imageUrl = image.startsWith("http") ? image : new URL(image, siteConfig.url).toString();
+  const canonicalUrl = new URL(canonicalPath, siteConfig.url).toString();
+  const imageUrl = image.startsWith("http")
+    ? image
+    : new URL(image, siteConfig.url).toString();
 
   return {
     metadataBase: new URL(siteConfig.url),
     title: pageTitle,
     description: metaDescription,
     alternates: {
-      canonical: url,
+      canonical: canonicalUrl,
+    },
+    robots: {
+      index: true,
+      follow: true,
     },
     openGraph: {
       title: pageTitle,
       description: metaDescription,
-      url,
+      url: canonicalUrl,
       siteName: siteConfig.name,
       locale: "en_US",
       type: "website",

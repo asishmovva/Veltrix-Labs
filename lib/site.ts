@@ -1,8 +1,10 @@
+const fallbackSiteUrl = "https://veltrix-labs.vercel.app";
+
 export const siteConfig = {
   name: "Veltrix Labs",
   description:
     "We design and build high-performance websites and e-commerce systems for modern businesses.",
-  url: "https://veltrixlabs.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? fallbackSiteUrl,
   email: "hello@veltrixlabs.com",
   locations: "US • UK • UAE (Remote)",
   mainNav: [
@@ -13,14 +15,14 @@ export const siteConfig = {
     { label: "Contact", href: "/contact" },
   ],
   serviceLinks: [
-    { label: "Web Engineering", href: "/services" },
+    { label: "Website Design & Development", href: "/services" },
     { label: "E-Commerce Architecture", href: "/services" },
-    { label: "UI/UX Systems", href: "/services" },
-    { label: "Performance & Optimization", href: "/services" },
+    { label: "Landing Pages", href: "/services" },
+    { label: "SEO & Performance Optimization", href: "/services" },
   ],
   socialLinks: [
     { label: "LinkedIn", href: "https://www.linkedin.com" },
-    { label: "X / Twitter", href: "https://x.com" },
+    { label: "X", href: "https://x.com" },
     { label: "Instagram", href: "https://www.instagram.com" },
   ],
 } as const;

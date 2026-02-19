@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "contentlayer": "contentlayer build",
+    "predev": "npm run contentlayer",
+    "prebuild": "npm run contentlayer",
     "dev": "next dev",
     "build": "next build",
     "postbuild": "next-sitemap",

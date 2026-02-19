@@ -55,7 +55,7 @@ export function SiteFooter() {
 
       <div className="border-t border-white/10">
         <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-3 px-6 py-5 text-xs text-text-secondary">
-          <p>© {new Date().getFullYear()} Veltrix Labs. All rights reserved.</p>
+          <p>(c) {new Date().getFullYear()} Veltrix Labs. All rights reserved.</p>
           <p>{siteConfig.locations}</p>
         </div>
       </div>

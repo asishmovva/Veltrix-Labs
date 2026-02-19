@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://veltrixlabs.com
+Host: https://veltrix-labs.vercel.app
 
 # Sitemaps
-Sitemap: https://veltrixlabs.com/sitemap.xml
+Sitemap: https://veltrix-labs.vercel.app/sitemap.xml
