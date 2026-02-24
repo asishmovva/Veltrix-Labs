@@ -4,6 +4,7 @@ import { CtaBandSection } from "@/components/sections/cta-band-section";
 import { FaqSection } from "@/components/sections/faq-section";
 import { FeaturesStripSection } from "@/components/sections/features-strip-section";
 import { HeroSection } from "@/components/sections/hero-section";
+import { PricingTiersSection } from "@/components/sections/pricing-tiers-section";
 import { ProcessStepsSection } from "@/components/sections/process-steps-section";
 import { ServicesGridSection } from "@/components/sections/services-grid-section";
 import { WorkPreviewSection } from "@/components/sections/work-preview-section";
@@ -29,6 +30,8 @@ export function SectionRenderer({ sections }: SectionRendererProps) {
             return <ProcessStepsSection key={section.id} section={section} />;
           case "faq":
             return <FaqSection key={section.id} section={section} />;
+          case "pricing_tiers":
+            return <PricingTiersSection key={section.id} section={section} />;
           case "cta_band":
             return <CtaBandSection key={section.id} section={section} />;
           default:

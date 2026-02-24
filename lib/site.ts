@@ -9,6 +9,7 @@ export const siteConfig = {
   locations: "US • UK • UAE (Remote)",
   mainNav: [
     { label: "Services", href: "/services" },
+    { label: "Pricing", href: "/pricing" },
     { label: "Work", href: "/work" },
     { label: "About", href: "/about" },
     { label: "Blog", href: "/blog" },
