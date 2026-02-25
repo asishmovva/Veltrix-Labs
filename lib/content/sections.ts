@@ -32,6 +32,15 @@ export const CaseStudyCardSchema = z.object({
   metric: z.string().optional(),
 });
 
+export const PricingTierSchema = z.object({
+  name: z.string(),
+  price: z.string(),
+  bestFor: z.string(),
+  bullets: z.array(z.string()).min(1).max(7),
+  cta: CtaSchema,
+  badge: z.string().optional(),
+});
+
 export const SectionSchema = z.discriminatedUnion("type", [
   z.object({
     type: z.literal("hero"),
@@ -84,6 +93,13 @@ export const SectionSchema = z.discriminatedUnion("type", [
         a: z.string(),
       }),
     ),
+  }),
+  z.object({
+    type: z.literal("pricing_tiers"),
+    id: z.string(),
+    title: z.string(),
+    subtitle: z.string().optional(),
+    items: z.array(PricingTierSchema).min(1),
   }),
   z.object({
     type: z.literal("cta_band"),
