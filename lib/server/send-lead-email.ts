@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 
 import type { LeadRecord } from "@/lib/server/lead-types";
+import { planLabels, projectTypeLabels } from "@/lib/validators/contact";
 
 function getResendClient() {
   const apiKey = process.env.RESEND_API_KEY;
@@ -32,15 +33,16 @@ export async function sendLeadEmail(lead: LeadRecord) {
   }
 
   const resend = getResendClient();
-  const subject = `New Lead - ${lead.serviceInterest} - ${lead.name}`;
+  const subject = `New Lead - ${planLabels[lead.plan]} - ${lead.name}`;
 
   const safeLead = {
     timestamp: escapeHtml(lead.timestamp),
     name: escapeHtml(lead.name),
     email: escapeHtml(lead.email),
     company: escapeHtml(lead.company || "-"),
-    serviceInterest: escapeHtml(lead.serviceInterest),
-    budgetRange: escapeHtml(lead.budgetRange || "-"),
+    plan: escapeHtml(planLabels[lead.plan]),
+    projectType: escapeHtml(projectTypeLabels[lead.projectType]),
+    budget: escapeHtml(lead.budget || "-"),
     timeline: escapeHtml(lead.timeline || "-"),
     message: escapeHtml(lead.message).replace(/\n/g, "<br/>"),
     pageUrl: escapeHtml(lead.pageUrl || "-"),
@@ -53,8 +55,9 @@ export async function sendLeadEmail(lead: LeadRecord) {
     formatLine("Name", lead.name),
     formatLine("Email", lead.email),
     formatLine("Company", lead.company),
-    formatLine("Service", lead.serviceInterest),
-    formatLine("Budget", lead.budgetRange),
+    formatLine("Plan", planLabels[lead.plan]),
+    formatLine("Project Type", projectTypeLabels[lead.projectType]),
+    formatLine("Budget", lead.budget),
     formatLine("Timeline", lead.timeline),
     formatLine("Message", lead.message),
     formatLine("Page URL", lead.pageUrl),
@@ -68,8 +71,9 @@ export async function sendLeadEmail(lead: LeadRecord) {
     <p><strong>Name:</strong> ${safeLead.name}</p>
     <p><strong>Email:</strong> ${safeLead.email}</p>
     <p><strong>Company:</strong> ${safeLead.company}</p>
-    <p><strong>Service:</strong> ${safeLead.serviceInterest}</p>
-    <p><strong>Budget:</strong> ${safeLead.budgetRange}</p>
+    <p><strong>Plan:</strong> ${safeLead.plan}</p>
+    <p><strong>Project Type:</strong> ${safeLead.projectType}</p>
+    <p><strong>Budget:</strong> ${safeLead.budget}</p>
     <p><strong>Timeline:</strong> ${safeLead.timeline}</p>
     <p><strong>Message:</strong><br/>${safeLead.message}</p>
     <hr />
