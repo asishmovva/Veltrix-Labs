@@ -21,6 +21,7 @@ export const ServiceSchema = z.object({
   description: z.string(),
   bullets: z.array(z.string()).optional(),
   href: z.string().optional(),
+  ctaLabel: z.string().optional(),
 });
 
 export const CaseStudyCardSchema = z.object({

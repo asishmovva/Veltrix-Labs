@@ -1,5 +1,7 @@
 import type { Section } from "@/lib/content/sections";
-import Link from "next/link";
+
+import { TrackedCtaLink } from "@/components/analytics/tracked-cta-link";
+import { cn } from "@/lib/utils";
 
 type ServicesGridData = Extract<Section, { type: "services_grid" }>;
 
@@ -15,7 +17,12 @@ export function ServicesGridSection({ section }: ServicesGridSectionProps) {
         <p className="mt-3 max-w-3xl text-text-secondary">{section.subtitle}</p>
       ) : null}
 
-      <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div
+        className={cn(
+          "mt-5 grid gap-4 sm:grid-cols-2",
+          section.items.length <= 2 ? "lg:grid-cols-2" : "lg:grid-cols-3",
+        )}
+      >
         {section.items.map((item, index) => (
           <article
             key={`${section.id}-${item.title}`}
@@ -38,12 +45,14 @@ export function ServicesGridSection({ section }: ServicesGridSectionProps) {
             ) : null}
 
             {item.href ? (
-              <Link
+              <TrackedCtaLink
                 href={item.href}
+                label={item.ctaLabel ?? "Learn more"}
+                location={section.id}
                 className="mt-4 inline-block text-sm font-medium text-primary transition-opacity hover:opacity-80"
               >
-                Learn more
-              </Link>
+                {item.ctaLabel ?? "Learn more"}
+              </TrackedCtaLink>
             ) : null}
           </article>
         ))}
