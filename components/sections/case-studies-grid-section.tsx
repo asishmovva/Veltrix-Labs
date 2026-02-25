@@ -1,4 +1,7 @@
 import type { CaseStudy } from "contentlayer/generated";
+import Link from "next/link";
+
+import { TrackedCtaLink } from "@/components/analytics/tracked-cta-link";
 
 type CaseStudiesGridSectionProps = {
   items: CaseStudy[];
@@ -15,7 +18,11 @@ export function CaseStudiesGridSection({ items }: CaseStudiesGridSectionProps) {
             className="rounded-2xl border border-white/10 bg-graphite-2/70 p-5"
           >
             <p className="text-xs uppercase tracking-[0.16em] text-primary">{item.industry}</p>
-            <h3 className="mt-2 text-xl font-medium text-text-primary">{item.title}</h3>
+            <h3 className="mt-2 text-xl font-medium text-text-primary">
+              <Link href={item.url} className="transition-opacity hover:opacity-80">
+                {item.title}
+              </Link>
+            </h3>
             <p className="mt-3 text-sm text-text-secondary">
               <span className="font-medium text-text-primary/90">Problem:</span> {item.problem}
             </p>
@@ -38,6 +45,14 @@ export function CaseStudiesGridSection({ items }: CaseStudiesGridSectionProps) {
             {item.outcomeMetric ? (
               <p className="mt-4 text-sm font-medium text-primary">{item.outcomeMetric}</p>
             ) : null}
+            <TrackedCtaLink
+              href={item.url}
+              label={`View case study: ${item.title}`}
+              location="work-grid"
+              className="mt-4 inline-block text-sm font-medium text-primary transition-opacity hover:opacity-80"
+            >
+              View Case Study
+            </TrackedCtaLink>
           </article>
         ))}
       </div>
