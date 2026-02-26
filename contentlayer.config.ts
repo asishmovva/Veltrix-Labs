@@ -32,10 +32,12 @@ export const CaseStudy = defineDocumentType(() => ({
   contentType: "mdx",
   fields: {
     title: { type: "string", required: true },
+    description: { type: "string", required: true },
     industry: { type: "string", required: true },
     problem: { type: "string", required: true },
     solution: { type: "string", required: true },
     results: { type: "string", required: true },
+    deliverables: { type: "list", of: { type: "string" }, required: true },
     stack: { type: "list", of: { type: "string" }, required: true },
     outcomeMetric: { type: "string", required: false },
     published: { type: "boolean", required: false, default: true },

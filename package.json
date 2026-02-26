@@ -6,7 +6,7 @@
     "contentlayer": "contentlayer build",
     "predev": "npm run contentlayer",
     "prebuild": "npm run contentlayer",
-    "pretypecheck": "npm run contentlayer",
+    "pretypecheck": "npm run contentlayer && next typegen",
     "dev": "next dev",
     "build": "next build",
     "postbuild": "next-sitemap",
