@@ -26,9 +26,9 @@ export function BasicChatbot() {
   }, [query]);
 
   return (
-    <div className="fixed bottom-4 right-4 z-30 sm:bottom-6 sm:right-6">
+    <div className="fixed bottom-[max(0.75rem,env(safe-area-inset-bottom))] right-[max(0.75rem,env(safe-area-inset-right))] z-30 sm:bottom-6 sm:right-6">
       {open ? (
-        <div className="w-[min(92vw,380px)] overflow-hidden rounded-2xl border border-white/10 bg-graphite-2/95 shadow-[0_20px_40px_rgba(0,0,0,0.35)] backdrop-blur-md">
+        <div className="w-[min(calc(100vw-1rem),380px)] overflow-hidden rounded-2xl border border-white/10 bg-graphite-2/95 shadow-[0_20px_40px_rgba(0,0,0,0.35)] backdrop-blur-md sm:w-[min(92vw,380px)]">
           <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
             <div>
               <p className="text-sm font-semibold text-text-primary">Veltrix Assistant</p>
@@ -40,6 +40,7 @@ export function BasicChatbot() {
               variant="ghost"
               className="text-text-primary hover:bg-white/10"
               onClick={() => setOpen(false)}
+              aria-label="Close assistant"
             >
               <X className="size-4" />
             </Button>
@@ -53,7 +54,7 @@ export function BasicChatbot() {
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search pricing, timeline, support..."
-                className="h-10 w-full bg-transparent text-sm text-text-primary placeholder:text-text-secondary focus:outline-none"
+                className="h-11 w-full bg-transparent text-sm text-text-primary placeholder:text-text-secondary focus:outline-none"
               />
             </div>
           </div>
@@ -65,7 +66,7 @@ export function BasicChatbot() {
                   key={item.question}
                   type="button"
                   onClick={() => setQuery(item.tag)}
-                  className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-text-primary transition-colors hover:bg-white/10"
+                  className="min-h-11 rounded-full border border-white/15 bg-white/5 px-3 py-2 text-xs text-text-primary transition-colors hover:bg-white/10"
                 >
                   {item.tag}
                 </button>
@@ -91,8 +92,8 @@ export function BasicChatbot() {
                   Share your question directly and we will respond quickly.
                 </p>
                 <Link
-                  href="/contact"
-                  className="mt-3 inline-block text-sm font-medium text-primary hover:opacity-80"
+                  href="/contact#contact-form"
+                  className="mt-3 inline-flex min-h-11 items-center text-sm font-medium text-primary hover:opacity-80"
                 >
                   Go to Contact
                 </Link>
@@ -105,8 +106,9 @@ export function BasicChatbot() {
       <Button
         type="button"
         size="lg"
-        className="mt-3 gap-2 rounded-full px-5 shadow-[0_12px_24px_rgba(0,0,0,0.35)]"
+        className="mt-3 h-11 gap-2 rounded-full px-4 shadow-[0_12px_24px_rgba(0,0,0,0.35)] sm:px-5"
         onClick={() => setOpen((value) => !value)}
+        aria-label={open ? "Close help assistant" : "Open help assistant"}
       >
         <MessageCircle className="size-4" />
         Help
