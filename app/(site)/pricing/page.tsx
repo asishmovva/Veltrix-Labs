@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { PageEventTracker } from "@/components/analytics/page-event-tracker";
 import { ContentFallback } from "@/components/sections/content-fallback";
 import { SectionRenderer } from "@/components/sections/section-renderer";
 import { getPageBySlug } from "@/lib/content/getPageBySlug";
@@ -23,5 +24,10 @@ export default function PricingPage() {
     return <ContentFallback slug="pricing" />;
   }
 
-  return <SectionRenderer sections={page.validatedSections} />;
+  return (
+    <>
+      <PageEventTracker event="pricing_page_view" location="pricing-page" path="/pricing" />
+      <SectionRenderer sections={page.validatedSections} />
+    </>
+  );
 }
