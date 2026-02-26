@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://veltrix-labs.vercel.app
+Host: https://chronovera.com
 
 # Sitemaps
-Sitemap: https://veltrix-labs.vercel.app/sitemap.xml
+Sitemap: https://chronovera.com/sitemap.xml

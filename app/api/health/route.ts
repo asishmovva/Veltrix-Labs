@@ -2,7 +2,7 @@ export async function GET() {
   return Response.json(
     {
       status: "ok",
-      service: "veltrix-labs",
+      service: "chronovera",
       timestamp: new Date().toISOString(),
     },
     { status: 200 },

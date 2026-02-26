@@ -58,8 +58,12 @@ export function SiteNavbar() {
         )}
       >
         <div className="mx-auto flex h-20 w-full max-w-6xl items-center justify-between px-6">
-          <Link href="/" className="font-display text-lg tracking-tight text-text-primary">
-            Veltrix Labs
+          <Link
+            href="/"
+            className="font-display text-base tracking-[0.12em] text-text-primary sm:text-lg"
+            aria-label="Chronovera home"
+          >
+            CHRONOVERA
           </Link>
 
           <nav className="hidden items-center gap-8 md:flex">

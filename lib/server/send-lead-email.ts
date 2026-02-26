@@ -33,7 +33,7 @@ export async function sendLeadEmail(lead: LeadRecord) {
   }
 
   const resend = getResendClient();
-  const subject = `New Lead - ${planLabels[lead.plan]} - ${lead.name}`;
+  const subject = `Chronovera Lead - ${planLabels[lead.plan]} - ${lead.name}`;
 
   const safeLead = {
     timestamp: escapeHtml(lead.timestamp),
@@ -66,7 +66,7 @@ export async function sendLeadEmail(lead: LeadRecord) {
   ].join("\n");
 
   const html = `
-    <h2>New Lead</h2>
+    <h2>Chronovera Lead Enquiry</h2>
     <p><strong>Timestamp:</strong> ${safeLead.timestamp}</p>
     <p><strong>Name:</strong> ${safeLead.name}</p>
     <p><strong>Email:</strong> ${safeLead.email}</p>

@@ -11,7 +11,7 @@ type PricingTiersSectionProps = {
 
 function getPlanFromHref(href: string) {
   try {
-    return new URL(href, "https://veltrix-labs.local").searchParams.get("plan") ?? "";
+    return new URL(href, "https://chronovera.local").searchParams.get("plan") ?? "";
   } catch {
     return "";
   }

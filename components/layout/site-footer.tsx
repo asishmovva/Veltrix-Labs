@@ -7,7 +7,9 @@ export function SiteFooter() {
     <footer className="border-t border-white/10 bg-graphite-2/80">
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-3">
         <div>
-          <h2 className="font-display text-lg text-text-primary">Veltrix Labs</h2>
+          <h2 className="font-display text-base tracking-[0.12em] text-text-primary sm:text-lg">
+            CHRONOVERA
+          </h2>
           <p className="mt-3 text-sm leading-relaxed text-text-secondary">{siteConfig.description}</p>
         </div>
 
@@ -55,7 +57,7 @@ export function SiteFooter() {
 
       <div className="border-t border-white/10">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-2 px-4 py-5 text-xs text-text-secondary sm:flex-row sm:items-center sm:gap-3 sm:px-6">
-          <p>(c) {new Date().getFullYear()} Veltrix Labs. All rights reserved.</p>
+          <p>(c) {new Date().getFullYear()} Chronovera™. All rights reserved.</p>
           <p>{siteConfig.locations}</p>
         </div>
       </div>

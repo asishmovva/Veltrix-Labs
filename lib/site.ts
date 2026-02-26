@@ -1,11 +1,12 @@
-const fallbackSiteUrl = "https://veltrix-labs.vercel.app";
+const fallbackSiteUrl = "https://chronovera.com";
 
 export const siteConfig = {
-  name: "Veltrix Labs",
+  name: "Chronovera",
+  defaultTitle: "Chronovera — Precision Digital Systems",
   description:
-    "We design and build high-performance websites and e-commerce systems for modern businesses.",
+    "Chronovera builds high-performance websites, e-commerce systems, and custom digital platforms for modern businesses.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? fallbackSiteUrl,
-  email: "hello@veltrixlabs.com",
+  email: "info@chronovera.com",
   locations: "US • UK • UAE (Remote)",
   mainNav: [
     { label: "Services", href: "/services" },
