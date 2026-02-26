@@ -4,6 +4,7 @@ export const eventNameOptions = [
   "lead_submit_success",
   "lead_submit_error",
   "cta_click",
+  "pricing_page_view",
   "pricing_cta_click",
   "contact_form_view",
 ] as const;
