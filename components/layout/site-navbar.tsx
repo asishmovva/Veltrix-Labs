@@ -10,6 +10,14 @@ import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
+function isNavItemActive(pathname: string, href: string) {
+  if (href === "/") {
+    return pathname === "/";
+  }
+
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export function SiteNavbar() {
   const pathname = usePathname();
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -28,6 +36,19 @@ export function SiteNavbar() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isMobileNavOpen) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isMobileNavOpen]);
+
   return (
     <>
       <header
@@ -42,18 +63,23 @@ export function SiteNavbar() {
           </Link>
 
           <nav className="hidden items-center gap-8 md:flex">
-            {siteConfig.mainNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "text-sm transition-colors hover:text-text-primary",
-                  pathname === item.href ? "text-text-primary" : "text-text-secondary",
-                )}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {siteConfig.mainNav.map((item) => {
+              const isActive = isNavItemActive(pathname, item.href);
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={cn(
+                    "text-sm transition-colors hover:text-text-primary",
+                    isActive ? "text-text-primary" : "text-text-secondary",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="hidden md:block">
@@ -109,24 +135,29 @@ export function SiteNavbar() {
               </div>
 
               <nav className="mt-8 flex flex-col gap-2">
-                {siteConfig.mainNav.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setIsMobileNavOpen(false)}
-                    className={cn(
-                      "rounded-lg px-3 py-2 text-base transition-colors",
-                      pathname === item.href
-                        ? "bg-white/10 text-text-primary"
-                        : "text-text-secondary hover:bg-white/5 hover:text-text-primary",
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
+                {siteConfig.mainNav.map((item) => {
+                  const isActive = isNavItemActive(pathname, item.href);
+
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setIsMobileNavOpen(false)}
+                      aria-current={isActive ? "page" : undefined}
+                      className={cn(
+                        "flex min-h-11 items-center rounded-lg px-3 py-2 text-base transition-colors",
+                        isActive
+                          ? "bg-white/10 text-text-primary"
+                          : "text-text-secondary hover:bg-white/5 hover:text-text-primary",
+                      )}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
               </nav>
 
-              <Button asChild className="mt-6">
+              <Button asChild className="mt-6 h-11">
                 <Link href="/contact#contact-form" onClick={() => setIsMobileNavOpen(false)}>
                   Start Your Project
                 </Link>
