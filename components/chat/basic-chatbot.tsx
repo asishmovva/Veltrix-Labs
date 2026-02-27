@@ -31,8 +31,8 @@ export function BasicChatbot() {
         <div className="w-[min(calc(100vw-1rem),380px)] overflow-hidden rounded-2xl border border-white/10 bg-graphite-2/95 shadow-[0_20px_40px_rgba(0,0,0,0.35)] backdrop-blur-md sm:w-[min(92vw,380px)]">
           <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
             <div>
-              <p className="text-sm font-semibold text-text-primary">Veltrix Assistant</p>
-              <p className="text-xs text-text-secondary">Quick answers about services</p>
+              <p className="text-sm font-semibold text-text-primary">Chronovera Assistant</p>
+              <p className="text-xs text-text-secondary">Quick answers about Chronovera services</p>
             </div>
             <Button
               type="button"

@@ -17,6 +17,21 @@ function normalizePath(path: string) {
   return withLeadingSlash;
 }
 
+function buildPageTitle(title?: string) {
+  if (!title) {
+    return siteConfig.defaultTitle;
+  }
+
+  const normalizedTitle = title.toLowerCase();
+  const normalizedSiteName = siteConfig.name.toLowerCase();
+
+  if (normalizedTitle.includes(normalizedSiteName)) {
+    return title;
+  }
+
+  return `${title} | ${siteConfig.name}`;
+}
+
 export function buildMetadata({
   title,
   description,
@@ -24,7 +39,7 @@ export function buildMetadata({
   image = "/og-image.jpg",
 }: MetadataInput = {}): Metadata {
   const canonicalPath = normalizePath(path);
-  const pageTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
+  const pageTitle = buildPageTitle(title);
   const metaDescription = description ?? siteConfig.description;
   const canonicalUrl = new URL(canonicalPath, siteConfig.url).toString();
   const imageUrl = image.startsWith("http")
@@ -33,6 +48,13 @@ export function buildMetadata({
 
   return {
     metadataBase: new URL(siteConfig.url),
+    applicationName: siteConfig.name,
+    manifest: "/manifest.webmanifest",
+    icons: {
+      icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+      shortcut: ["/icon.svg"],
+      apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    },
     title: pageTitle,
     description: metaDescription,
     alternates: {
